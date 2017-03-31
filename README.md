@@ -8,9 +8,30 @@
 + 环境配置，打包，发布
 + ES6+，ESLint
 
+## 使用
+
+### dev + api
+    npm run start
+
+>1.此命令会启动开发和后端两个服务器，你可以在`config`文件夹中修改你的开发服务器配置  
+2.开发服务器启动后，双击命令行上的链接地址即可在浏览器中打开  
+3.编写`src`目录下的代码保存，浏览器即可热刷新  
+4.编写`bkd`目录下的代码保存，后端服务器可热重启
+
+### 开发
+    npm run dev
+
+### 构建发版
+    npm run test
+    npm run beta
+    npm run prod
+
+### watch
+    npm run watch
+
 ## 目录结构
 react-redux-ie8 项目根目录  
-|---api 模拟API  
+|---bkd 模拟后端  
 |---build 项目构建  
 |　　|---config 构建项目用到的配置    
 |　　|---task 构建任务入口  
@@ -30,6 +51,7 @@ react-redux-ie8 项目根目录
 |　　|　　|---components 全局组件  
 |　　|　　|---iconfont 字体图标  
 |　　|　　|---img 全局图片  
+|　　|　　|---module 其他模块  
 |---zip 上线Zip包目录  
 |---.babelrc babel运行时配置  
 |---.editorconfig 编辑器配置  
