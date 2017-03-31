@@ -1,0 +1,5 @@
+API模拟
+
+可以简单使用json文件，或mock，甚至在线第三方工具等实现。
+
+我这里比较简单地启动了一个API服务来模拟后端API。使用[nodemon](https://github.com/remy/nodemon)可以热重启。使用[lowdb](https://github.com/typicode/lowdb)做数据存储。

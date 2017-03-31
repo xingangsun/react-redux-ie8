@@ -1,0 +1,17 @@
+.DS_Store
+npm-debug.log
+node_modules/
+
+.happypack
+.tmp
+.idea
+.settings
+.project
+.vscode
+*.log
+*.dat
+
+dist
+zip
+
+config/mine.js

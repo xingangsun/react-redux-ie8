@@ -1,0 +1,24 @@
+{
+  "presets": [
+    // https://github.com/babel/babel-preset-env
+    // https://segmentfault.com/a/1190000005112677
+    // http://www.2ality.com/2015/12/babel6-loose-mode.html
+    ["env", {
+      "targets": {
+        "browsers": ["> 5%", "last 2 versions", "IE >= 8"],
+        "node": "current"
+      },
+      // "modules": false, // use webpack2 tree-shaking
+      "loose": true
+    }],
+    // https://tc39.github.io/process-document/
+    "stage-0",
+    "react"
+  ],
+  "plugins": [
+    // http://babeljs.io/docs/plugins/transform-runtime/
+    "transform-runtime"
+  ],
+  // Output comments in generated output.
+  "comments": false
+}
