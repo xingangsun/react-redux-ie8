@@ -66,7 +66,7 @@ react-redux-ie8 项目根目录
 |---zip 上线Zip包目录  
 |---.babelrc [babel运行时配置](/doc/babel转码.md)  
 |---.editorconfig [编辑器配置](/doc/编辑器配置.md)  
-|---.eslintignore [eslint忽略配置](/doc/代码风格检查.md)  	
+|---.eslintignore [eslint忽略配置](/doc/代码风格检查.md)  
 |---.eslintrc.js [eslint运行时配置](/doc/代码风格检查.md)  
 |---.gitignore git忽略配置  
 |---package.json npm配置  
