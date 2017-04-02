@@ -4,18 +4,8 @@
 export default {
   $: 'jquery',
   jQuery: 'jquery',
-  template: 'template',
-  store: 'store',
-  _: 'underscore',
-  global: 'global',
-  smallnote: 'smallnote',
-  iwjw: 'iwjw',
-  iwim: 'iwim',
-  iwjwLog: 'iwjwLog',
-  router: 'router',
-  dialog: 'dialog',
-  header: 'header',
+  // _: 'underscore',
+
   React: 'react',
   ReactDOM: 'react-dom',
-  ReactRouter: 'react-router',
 }

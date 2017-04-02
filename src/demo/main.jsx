@@ -1,14 +1,14 @@
-import App from './app';
-import Index from './views/index';
-import Detail from './views/detail';
+import { browserHistory, Router, Route, IndexRedirect, Redirect } from 'react-router';
 
-const { browserHistory, Router, Route, IndexRedirect, Redirect } = ReactRouter;
+import App from './app';
+import List from './views/list';
+import Detail from './views/detail';
 
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/demo" component={App}>
-      <IndexRedirect to="index" />
-      <Route path="index" component={Index} />
+      <IndexRedirect to="list" />
+      <Route path="list" component={List} />
       <Route path="detail" component={Detail} />
       <Redirect from="*" to="/demo" />
     </Route>

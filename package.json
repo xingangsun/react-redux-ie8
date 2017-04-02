@@ -23,9 +23,13 @@
   },
   "homepage": "https://github.com/xingangsun/react-redux-ie8#readme",
   "dependencies": {
+    "core-js": "^2.4.1",
+    "jquery": "~1.12.4",
     "react": "~0.14.8",
     "react-dom": "~0.14.8",
-    "react-router": "~2.3.0"
+    "react-redux": "^5.0.3",
+    "react-router": "~2.3.0",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",

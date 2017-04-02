@@ -35,6 +35,7 @@ module.exports = {
 
   // add your custom rules here
   rules: {
+    'no-console': 0,
     // 'indent': [2, 2, { SwitchCase: 1 }],
     // 'camelcase': [2, { properties: 'never' }],
     // 'prefer-const': 0,

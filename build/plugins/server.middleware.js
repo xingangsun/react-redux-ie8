@@ -54,7 +54,7 @@ export default function (req, res, next) {
   <link rel="shortcut icon" href="/global/img/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-  ${cssAssets.map(cssAsset => `<link rel="stylesheet" href="/${cssAsset}">`).join('')}
+  ${cssAssets.map(cssAsset => `<link rel="stylesheet" href="/${cssAsset}">`).join('\n  ')}
 
   <script>
   ;(function() {
@@ -86,7 +86,7 @@ export default function (req, res, next) {
   <div class="mod-footer" id="mod-footer"></div>
 
   <!--[if IE 8]> <script src="/global/module/es5-shim-sham.js"></script> <![endif]-->
-  ${jsAssets.map(jsAsset => `<script src="/${jsAsset}"></script>`).join('')}
+  ${jsAssets.map(jsAsset => `<script src="/${jsAsset}"></script>`).join('\n  ')}
 </body>
 
 </html>
