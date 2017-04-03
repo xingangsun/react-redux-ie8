@@ -41,6 +41,8 @@ module.exports = {
     // 'prefer-const': 0,
     // 'eqeqeq': 0,
     // 'comma-dangle': 0,
+    'import/prefer-default-export': 0,
+    'no-plusplus': 0,
     'jsx-a11y/no-static-element-interactions': 0,
   }
 }
