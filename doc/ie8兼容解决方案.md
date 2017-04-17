@@ -5,8 +5,9 @@
 
 1.版本要求
 
-	"react": "~0.14.8",
-	"react-dom": "~0.14.8", 
+	"jquery": "~1.12.4",
+	"react": "~0.14.9",
+	"react-dom": "~0.14.9", 
 	"react-router": "~2.3.0"
 
 2.在IE8中引入es5-shim，es5-sham。
