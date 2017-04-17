@@ -19,3 +19,8 @@ ReactDOM.render((
     </Router>
   </Provider>
 ), document.getElementById('mod-demo'));
+// import App from './app';
+
+// ReactDOM.render((
+//   <App>app</App>
+// ), document.getElementById('mod-demo'));

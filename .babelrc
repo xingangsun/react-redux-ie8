@@ -18,6 +18,9 @@
   "plugins": [
     // http://babeljs.io/docs/plugins/transform-runtime/
     "transform-runtime"
+    // "add-module-exports",
+    // "transform-es3-property-literals",
+    // "transform-es3-member-expression-literals"
   ],
   // Output comments in generated output.
   "comments": false

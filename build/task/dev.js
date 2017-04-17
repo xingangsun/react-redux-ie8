@@ -19,7 +19,6 @@ let webpackConfig = webpackConfigDev
 if (nohot) { // IE8兼容测试
   webpackConfig = webpackConfigProd
   webpackConfig.plugins.splice(webpackConfig.plugins.findIndex((p) => p instanceof webpack.optimize.UglifyJsPlugin), 1)
-  webpackConfig.plugins.splice(webpackConfig.plugins.findIndex((p) => p instanceof webpack.optimize.DedupePlugin), 1) // Note: Don’t use it in watch mode. Only for production builds.
 } else { // 热刷新
   const hotclient = ['webpack-hot-middleware/client?noInfo=true&reload=true']
   const entry = webpackConfig.entry

@@ -4,6 +4,7 @@
 export default {
   // 公共的
   common: [
+    'babel-polyfill',
     // 'jquery',
     // 'underscore',
     './global/module/normalize.css',

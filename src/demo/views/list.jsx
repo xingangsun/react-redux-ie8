@@ -39,7 +39,7 @@ class List extends Component {
     const { todos } = this.props;
     const { text } = this.state;
     return (
-      <div className="demo-list">首页=------{this.props.name}<br />
+      <div className="demo-list">首页={this.props.name}<br />
         <input ref={(input) => { this.inputText = input; }} type="text" value={text} onChange={this.handleChange} />
         <button onClick={this.handleAddBtnClick}>添加</button>
         <br />

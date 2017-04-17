@@ -8,6 +8,14 @@ import cssgrace from 'cssgrace'
 
 import { entry, alias, provide, envConfig } from './config'
 
+const postcssPlugin = function () {
+  return [
+    autoprefixer({
+      browsers: ['> 5%', 'last 2 versions', 'IE >= 8']
+    })
+  ]
+}
+
 export default {
   context: `${process.cwd()}/src`,
   // devtool: false,
@@ -22,48 +30,70 @@ export default {
     chunkFilename: '[id].js'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias
   },
   module: {
-    preLoaders: [{
+    rules: [{
+      enforce: 'pre',
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'eslint'
-    }],
-    loaders: [{
+      loader: 'eslint-loader',
+      options: {
+        cache: true,
+        formatter: eslintFriendlyFormatter
+      }
+    }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loaders: ['react-hot', 'babel?cacheDirectory=true']
+      use: ['react-hot-loader', 'babel-loader?cacheDirectory=true']
     }, {
       test: /\.css$/,
-      // loaders: ['style', 'css?sourceMap', 'postcss'],
-      loaders: ['style', 'css', 'postcss']
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: false
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: postcssPlugin
+          }
+        }
+      ]
     }, {
       test: /\.scss$/,
-      // loaders: ['style', 'css?sourceMap', 'postcss', 'sass?sourceMap'],
-      loaders: ['style', 'css', 'postcss', 'sass']
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: false
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: postcssPlugin
+          }
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: false
+          }
+        }
+      ]
     }, {
-      test: /\.(png|jpg|gif|woff|woff2|ttf|eot|svg|swf)$/,
-      loader: 'file',
-      query: {
-        name: '[name].[ext]',
-        publicPath: ''
+      test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|svg|swf)$/,
+      loader: 'file-loader',
+      options: {
+          name: '[name].[ext]'
       }
     }]
-  },
-  postcss: [
-    autoprefixer({
-      browsers: ['> 5%', 'last 2 versions', 'IE >= 8']
-    }),
-    // https://github.com/cssdream/cssgrace
-    cssgrace
-  ],
-  eslint: {
-    cache: true,
-    // we want to enable ignore, so eslint will parse .eslintignore and should skip the file specified above
-    ignore: true,
-    formatter: eslintFriendlyFormatter
   },
   plugins: [
     new ProgressBarPlugin({
@@ -92,7 +122,7 @@ export default {
     }),
     // https://github.com/glenjamin/webpack-hot-middleware
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',

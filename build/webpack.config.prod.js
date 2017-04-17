@@ -11,7 +11,17 @@ import autoprefixer from 'autoprefixer'
 import cssgrace from 'cssgrace'
 import postcssClean from 'postcss-clean'
 
+import Es5to3WebpackPlugin from 'es5to3-webpack-plugin'
+
 import { entry, alias, provide, envName, envConfig, upload as uploadConfig } from './config'
+
+const postcssPlugin = function () {
+  return [
+    autoprefixer({
+      browsers: ['> 5%', 'last 2 versions', 'IE >= 8']
+    })
+  ]
+}
 
 export default {
   context: `${process.cwd()}/src`,
@@ -24,52 +34,87 @@ export default {
     chunkFilename: '[id]_[chunkhash:7].js' // 非入口文件的命名规则
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias
   },
   module: {
-    preLoaders: [{
+    rules: [{
+      enforce: 'pre',
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'eslint'
-    }],
-    loaders: [{
+      loader: 'eslint-loader',
+      options: {
+        cache: true,
+        formatter: eslintFriendlyFormatter
+      }
+    }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel?cacheDirectory=true'
+      use: ['babel-loader?cacheDirectory=true']
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract(['css', 'postcss'])
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: false
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: postcssPlugin
+            }
+          }
+        ]
+      })
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(['css', 'postcss', 'sass'])
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: false
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: postcssPlugin
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: false
+            }
+          }
+        ]
+      })
     }, {
-      test: /\.(png|jpg|gif|woff|woff2|ttf|eot|svg|swf)$/,
-      loader: 'file',
-      query: {
-        name: '[name]_[hash:7].[ext]'
+      test: /\.(png|jpe?g|gif|woff|woff2|ttf|eot|svg|swf)$/,
+      loader: 'file-loader',
+      options: {
+          name: '[name]_[hash:7].[ext]'
       }
-    }],
-    postLoaders: [{
+    }/*, {
+      enforce: 'post',
       test: /\.jsx?$/,
-      loaders: ['es3ify']
-    }]
-  },
-  postcss: [
-    autoprefixer({
-      browsers: ['> 5%', 'last 2 versions', 'IE >= 8']
-    }),
-    cssgrace,
-    postcssClean({
-      compatibility: 'ie8'
-    })
-  ],
-  eslint: {
-    cache: true,
-    ignore: true,
-    formatter: eslintFriendlyFormatter
+      loader: 'es3ify-loader'
+    }*/]
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }),
+    new Es5to3WebpackPlugin({
+      test: /\.jsx?$/
+    }),
     new ProgressBarPlugin({
       format: `${chalk.bold('[:bar]')} ${chalk.cyan.bold(':percent (:elapseds)')} :msg`,
       clear: true,
@@ -98,27 +143,25 @@ export default {
       name: 'common',
       minChunks: Infinity // 不需要抽取公共代码到这个文件中
     }),
-    new ExtractTextPlugin('[name].css', {
+    new ExtractTextPlugin({
+      filename: '[name].css',
       allChunks: true
     }),
 
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-
     // https://github.com/mishoo/UglifyJS2/blob/master/README.md
     // IE8 issues: https://github.com/SamHwang1990/blog/issues/6
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_console: true
-      },
-      output: {
-        // for IE8, keep keyword default -> "default"
-        keep_quoted_props: true,
-        comments: false
-      },
-      sourceMap: false
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false,
+    //     drop_console: true
+    //   },
+    //   output: {
+    //     // for IE8, keep keyword default -> "default"
+    //     keep_quoted_props: true,
+    //     comments: false
+    //   },
+    //   sourceMap: false
+    // }),
 
     new CleanWebpackPlugin(['dist', 'zip'], {
       root: `${process.cwd()}`,
