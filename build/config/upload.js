@@ -12,19 +12,19 @@ export default {
   },
   serverEnv: {
     test: {
-      serverUrl: 'http://192.168.1.75',
-      projectId: '32'
+      serverUrl: '',
+      projectId: ''
     },
     beta: {
-      serverUrl: 'http://121.41.34.206:8150',
-      projectId: '21'
+      serverUrl: '',
+      projectId: ''
     }
   },
   zipFilePath: `${process.cwd()}/zip/iwjw-pc.zip`,
   // ftp deploy
   ftp: {
-    host: '121.40.69.179',
-    user: 'staticuser',
-    password: 'KS94X7EoS4Ik82dH'
+    host: '',
+    user: '',
+    password: ''
   }
 }
